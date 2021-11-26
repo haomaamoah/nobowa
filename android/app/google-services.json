@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "681746622925",
+    "project_id": "nobowa-b2636",
+    "storage_bucket": "nobowa-b2636.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681746622925:android:cf2b1cdb6632e016fdbc84",
+        "android_client_info": {
+          "package_name": "com.nobowa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681746622925-em7khr0ovdgdclcrifvjvv1psq82ggum.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQJNgO2iZa-yALtMg5bdz1TGQcYa35CtA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681746622925-em7khr0ovdgdclcrifvjvv1psq82ggum.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

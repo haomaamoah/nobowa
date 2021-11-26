@@ -1,4 +1,4 @@
-package com.example.nobowa
+package com.nobowa
 
 import io.flutter.embedding.android.FlutterActivity
 
