@@ -3,6 +3,7 @@ import 'package:country_code_picker/country_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:nobowa/view/page/login.dart';
 
 class Users {
   late String name,password,email,phone,location,profession;
@@ -27,8 +28,10 @@ class Users {
 class Utils {
   static const String
   iconLogo = 'assets/images/companyLogo.png', bannerLogo = 'assets/images/companyBanner.png';
+
   static const List<String> professions =
   ["STUDENT","TEACHING STAFF","FARMER","SELF EMPLOYED","PRIVATE WORKER","PUBLIC WORKER","JUST INTERESTED"];
+
   static const List<Locale> supportedLocales =
   [
     Locale("af"),Locale("am"),Locale("ar"),Locale("az"),Locale("be"),Locale("bg"),Locale("bn"),Locale("bs"),Locale("ca"),Locale("cs"),
@@ -41,10 +44,13 @@ class Utils {
   ];
   static const List<LocalizationsDelegate> localizationsDelegates = 
   [CountryLocalizations.delegate,GlobalMaterialLocalizations.delegate,GlobalWidgetsLocalizations.delegate,];
-  
+
   static const yellowColor = Color(0xFFffec00);
   static const brownColor = Color(0xFF4f2d01);
-  
+
+  static double screenHeight(_)=>MediaQuery.of(_).size.height;
+  static double screenWidth(_)=>MediaQuery.of(_).size.width;
+
   static ThemeData themeData = ThemeData(
     brightness: Brightness.light,
     primaryColor: brownColor,

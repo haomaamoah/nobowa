@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'view/page/splash.dart';
 import 'model/models.dart';
 import 'view/page/home.dart';
 import 'view/page/login.dart';
@@ -33,12 +34,12 @@ class _MyAppState extends State<MyApp> {
         title: 'NOBOWA',
         theme: Utils.themeData,
         home: FutureBuilder(
-            initialData: Expanded(child: Container(color: Colors.green,),),
+            initialData: null,
             future: FileUtils.readFromFile(),
             builder: (context,data){
               bool homepage = false;
               if(data.connectionState == ConnectionState.done && data.hasData)homepage=true;
-              return (homepage) ? HomePage() : LoginForm();
+              return (homepage) ? SplashScreen() : LoginForm();
             })
       //PaymentForm(),
       //PaymentPage()

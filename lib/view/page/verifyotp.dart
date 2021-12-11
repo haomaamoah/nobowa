@@ -6,6 +6,7 @@ import 'package:nobowa/model/cloud_utils.dart';
 import 'package:nobowa/model/file_utils.dart';
 import 'package:nobowa/model/models.dart';
 import 'package:nobowa/view/page/home.dart';
+import 'package:nobowa/view/page/website.dart';
 import 'package:nobowa/view/widget/accessories.dart';
 import 'package:nobowa/view/widget/dialogs.dart';
 
@@ -37,7 +38,7 @@ class _VerifyOTPFormState extends State<VerifyOTPForm> {
               Future<void> userInfo = UsersDB.addUser(widget.user).timeout(const Duration(seconds: 10));
               userInfo.then((value){
                 FileUtils.saveToFile(widget.user.phone);
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomePage()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>Website()));
               }).
               catchError((error){
                 print(error);

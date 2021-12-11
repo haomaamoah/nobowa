@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nobowa/model/file_utils.dart';
+import 'package:nobowa/model/models.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../model/file_utils.dart';
 import 'bouncy_page_route.dart';
 
 logoutDialog(BuildContext context,page){
@@ -73,7 +75,8 @@ noInternetDialog(BuildContext context){
         )
       ],
     );
-  });}
+  });
+}
 
 statusDialog(BuildContext context,bool status,String label){
   return showDialog(context: context,builder: (context){
@@ -146,3 +149,36 @@ class _searchPhonePopUpState extends State<searchPhonePopUp> {
   }
 }
 
+
+externalLinkDialog(BuildContext context,url){
+  String alert =  'This link leads to an external website.\nPROCEED?';
+  return showDialog(context: context,builder: (context){
+    return AlertDialog(
+      actionsPadding: const EdgeInsets.symmetric(vertical:5.0,horizontal:10.0),
+      title: Center(child: const FaIcon(FontAwesomeIcons.globeAfrica,size: 60,color: Utils.brownColor,)),
+      content: SizedBox(width: 50,child: Text(alert,
+        textAlign: TextAlign.center,style: const TextStyle(fontFamily: "Times New Roman",fontSize: 25,fontWeight: FontWeight.w700),),),
+      actions: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(height: 50,decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Colors.redAccent[100]
+            ),
+                child:MaterialButton(elevation: 5.0,child: const Text('NO',
+                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: Utils.brownColor),
+                ),
+                    onPressed: () => Navigator.of(context).pop()
+                )),
+            const SizedBox(width: 10,),
+            Container(height: 50, decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Utils.yellowColor
+            ),
+                child:MaterialButton(elevation: 5.0,child: const Text('YES',
+                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700,color: Utils.brownColor),
+                ),
+                    onPressed: (){Navigator.of(context).pop;launch(url,enableJavaScript: true);}
+                ))
+          ],
+        )
+      ],
+    );
+  });}

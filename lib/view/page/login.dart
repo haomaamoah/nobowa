@@ -43,19 +43,24 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
   // Phone Field
   Widget phoneField(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          CountryCodePicker(
-            onChanged: (code) => dialCode = code.dialCode!,
-            initialSelection: "GH",
-            onInit: ( code) => dialCode = code!.dialCode!,
-            padding: const EdgeInsets.all(0),
-            textStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400,fontSize: 18),
-            flagDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
-            ),
+          Column(
+            children: [
+              Text("Select Your Country",style: TextStyle(fontSize: 12,color: Colors.redAccent),),
+              CountryCodePicker(
+                onChanged: (code) => dialCode = code.dialCode!,
+                initialSelection: "GH",
+                onInit: ( code) => dialCode = code!.dialCode!,
+                padding: const EdgeInsets.all(0),
+                textStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400,fontSize: 20),
+                flagDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             width: 200,
@@ -97,15 +102,8 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
     _breathingController = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
     _breathingController!.addStatusListener((status) {
       if (status == AnimationStatus.completed){_breathingController!.reverse();}
-      else if (status == AnimationStatus.dismissed){_breathingController!.forward();}
-    });
-    _breathingController!.addListener(() {
-      setState(() {
-        _breathe = _breathingController!.value;
-      });
-    });
-    _breathingController!.forward();
-
+      else if (status == AnimationStatus.dismissed){_breathingController!.forward();}});
+    _breathingController!.addListener(() {setState(() {_breathe = _breathingController!.value;});});_breathingController!.forward();
   }
   @override
   void dispose() {
@@ -183,14 +181,14 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                       },
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(60, 20, 60, 20),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
-                              color: Color(0xFFffec00),
+                              color: Utils.yellowColor,
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            child: Center(child: Text('LOGIN',style: TextStyle(color: Color(0xFF4f2d01),fontFamily: "Times New Roman",fontWeight: FontWeight.w900,fontSize: 27 + 3 * _breathe),)),
+                            child: Center(child: Text('LOGIN',style: TextStyle(color: Utils.brownColor,fontFamily: "Times New Roman",fontWeight: FontWeight.w900,fontSize: 27 + 3 * _breathe),)),
                           ),
                         ),
                       ),

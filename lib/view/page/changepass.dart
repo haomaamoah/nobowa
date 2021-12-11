@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:nobowa/model/cloud_utils.dart';
 import 'package:nobowa/view/page/login.dart';
+import 'package:nobowa/view/page/website.dart';
 import 'package:nobowa/view/widget/accessories.dart';
 import 'package:nobowa/view/widget/dialogs.dart';
 import '../../model/models.dart';
@@ -45,7 +46,7 @@ class _PasswordFormState extends State<PasswordForm> {
           .then((value){
         print("Password Updated");
         statusDialog(context, true,"PASSWORD UPDATED!");
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const HomePage()));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>Website()));
       })
           .catchError((error){
         print("Failed to add admin: $error");

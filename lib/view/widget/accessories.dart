@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nobowa/controller/buttonActions.dart';
 import 'package:nobowa/model/models.dart';
+import 'package:nobowa/view/page/login.dart';
+import 'package:nobowa/view/widget/dialogs.dart';
 
 
 class GradientCirclePBar extends StatefulWidget {
@@ -81,5 +85,30 @@ AppBar mainAppBar(){
               ])
       ),
     ),
+  );
+}
+
+
+SpeedDial floatingActionButton(context){
+  TextStyle _labelStyle = TextStyle(fontSize: 20.0,color: Utils.brownColor,fontWeight: FontWeight.bold,fontFamily: "Poppins");
+  return SpeedDial(
+    childMargin: EdgeInsets.fromLTRB(0, 10, 0, 10), animatedIcon: AnimatedIcons.menu_home, animatedIconTheme: IconThemeData(size: 22.0), buttonSize: Size(50,50),elevation: 8.0, shape: CircleBorder(),
+    tooltip: 'MENU', backgroundColor: Utils.brownColor, foregroundColor: Colors.white, curve: Curves.bounceInOut, overlayColor: Colors.black, overlayOpacity: 0.5,
+    children: [
+      SpeedDialChild(
+        child: Center(child: FaIcon(FontAwesomeIcons.powerOff,size: 30,color: Colors.red,)),
+        backgroundColor: Utils.yellowColor,
+        label: 'EXIT',
+        labelStyle: _labelStyle,
+        onTap: exitApp,
+      ),
+      SpeedDialChild(
+        child: Center(child: FaIcon(Icons.logout_rounded,size: 30,color: Colors.orange,)),
+        backgroundColor: Utils.yellowColor,
+        label: 'LOGOUT',
+        labelStyle: _labelStyle,
+        onTap: ()=>logoutDialog(context, const LoginForm()),
+      ),
+    ],
   );
 }

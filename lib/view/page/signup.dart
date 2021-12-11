@@ -139,15 +139,20 @@ class _SignupFormState extends State<SignupForm> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          CountryCodePicker(
-            onChanged: (code) => dialCode = code.dialCode!,
-            initialSelection: "GH",
-            onInit: ( code) => dialCode = code!.dialCode!,
-            padding: const EdgeInsets.all(0),
-            textStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400,fontSize: 18),
-            flagDecoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
-            ),
+          Column(
+            children: [
+              Text("Select Your Country",style: TextStyle(fontSize: 12,color: Colors.redAccent),),
+              CountryCodePicker(
+                onChanged: (code) => dialCode = code.dialCode!,
+                initialSelection: "GH",
+                onInit: ( code) => dialCode = code!.dialCode!,
+                padding: const EdgeInsets.all(0),
+                textStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400,fontSize: 20),
+                flagDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             width: 200,
