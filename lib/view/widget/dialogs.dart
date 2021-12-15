@@ -1,7 +1,9 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nobowa/controller/validation.dart';
 import 'package:nobowa/model/models.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../model/file_utils.dart';
@@ -110,16 +112,46 @@ class searchPhonePopUp extends StatefulWidget {
 class _searchPhonePopUpState extends State<searchPhonePopUp> {
   OutlineInputBorder infoOutlineInputBorder = OutlineInputBorder(borderRadius: BorderRadius.circular(20),);
   TextEditingController phone = TextEditingController();
+  late String dialCode;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Center(child: FaIcon(FontAwesomeIcons.phoneSquareAlt,size: 27,color: Colors.green,)),
-      content: TextFormField(
-        controller: phone,keyboardType: TextInputType.phone,
-        decoration: InputDecoration(
-          border: infoOutlineInputBorder,labelText: "PHONE NUMBER",
+      content: SizedBox(
+        height: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                Text("Select Your Country",style: TextStyle(fontSize: 12,color: Colors.redAccent),),
+                CountryCodePicker(
+                  onChanged: (code) => dialCode = code.dialCode!,
+                  initialSelection: "GH",
+                  onInit: ( code) => dialCode = code!.dialCode!,
+                  padding: const EdgeInsets.all(0),
+                  textStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400,fontSize: 20),
+                  flagDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 200,
+              child: TextFormField(
+                controller: phone,keyboardType: TextInputType.phone,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                  hintStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400),
+                  hintText: "ENTER MOBILE",
+                ),
+                validator: validatePhone,
+              ),
+            ),
+          ],
         ),
-        //validator: validateName,
       ),
       actions: <Widget>[
         Center(
@@ -131,7 +163,16 @@ class _searchPhonePopUpState extends State<searchPhonePopUp> {
                   child:MaterialButton(
                       elevation: 5.0,
                       child: Text('SEARCH',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w700),),
-                      onPressed: ()=>Navigator.of(context).pop(phone.text)
+                      onPressed: (){
+                        if (phone.text.isEmpty){
+                          Navigator.of(context).pop();
+                        }
+                        else{
+                          String formattedPhone = (phone.text[0] == "0" && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
+                          Navigator.of(context).pop(dialCode+formattedPhone);
+                        }
+
+                      }
                   )),
               SizedBox(height: 10,),
               Container(height: 30, decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.greenAccent

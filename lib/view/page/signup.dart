@@ -68,7 +68,8 @@ class _SignupFormState extends State<SignupForm> {
       user.name=name.text;
       user.password=password.text;
       user.email=email.text;
-      user.phone=dialCode+phone.text;
+      String formattedPhone = (phone.text[0] == "0" && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
+      user.phone=dialCode+formattedPhone;
       user.location=location ?? "Not Found";
       user.profession=profession;
       user.timestamp=Timestamp.now();
@@ -177,11 +178,13 @@ class _SignupFormState extends State<SignupForm> {
       child: TextFormField(
         controller: password,
         obscureText: true,
+        autovalidateMode: AutovalidateMode.always,
         decoration: InputDecoration(
-            labelStyle: const TextStyle(color: Color(0xFF4f2d01),fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+            errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+            labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
             border: infoOutlineInputBorder,labelText: "PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
         ),
-        validator: validatePassword,
+        validator: validateSignupPassword,
       ),
     );
   }
@@ -278,7 +281,7 @@ class _SignupFormState extends State<SignupForm> {
                             color: const Color(0xFFffec00),
                             borderRadius: BorderRadius.circular(25),
                           ),
-                          child: const Center(child: Text('VERIFY',style: TextStyle(color: Color(0xFF4f2d01),fontFamily: "Times New Roman",fontWeight: FontWeight.w800,fontSize: 25),)),
+                          child: const Center(child: Text('VERIFY AND ENTER',style: TextStyle(color: Color(0xFF4f2d01),fontFamily: "Times New Roman",fontWeight: FontWeight.w800,fontSize: 22),)),
                         ),
                       ),
                     ),

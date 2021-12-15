@@ -90,7 +90,7 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
           hintStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400),
           hintText: "ENTER PASSWORD",icon: FaIcon(FontAwesomeIcons.lock,color: Colors.redAccent,),
         ),
-        validator: validatePassword,
+        validator: validateLoginPassword,
       ),
     );
   }
@@ -137,32 +137,31 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                     const SizedBox(height: 10.0,),
                     GestureDetector(
                       onTap: (){
-                        searchPhoneDialog(context).then((_phone)async{
-                          if (_phone){
-                            try {
+                        try {
+                          searchPhoneDialog(context).then((_phone)async{
+                            if (_phone.runtimeType==String){
                               setState(()=>loading=!loading);
                               QuerySnapshot userInfo = await UsersDB.validUser(_phone).timeout(const Duration(seconds: 10));
-                              if(userInfo.docs[0].exists){
+                              if(userInfo.docs.length>=1){
                                 Users user = Users.fromMap(userInfo.docs[0].data());
-                                Navigator.push(context, BouncyPageRoute(widget: VerifyOTPForm(user)));
+                                Navigator.push(context, BouncyPageRoute(widget: VerifyOTPForm(user,true)));
                               }else{
                                 setState(()=>loading=!loading);
                                 nonUserDialog(context);
                               }
-                            } on TimeoutException {
-                              setState(()=>loading=!loading);
-                              noInternetDialog(context);
-                            } on RangeError {
-                              setState(()=>loading=!loading);
-                              statusDialog(context,false,"NOT A REGISTERED USER!");
-                            } on Error catch (e) {
-                              setState(()=>loading=!loading);
-                              statusDialog(context,false,"NOT A REGISTERED USER!");
-                              print('Error: $e');
                             }
-                          }
-                        });
-
+                          });
+                        } on TimeoutException {
+                          setState(()=>loading=!loading);
+                          noInternetDialog(context);
+                        } on RangeError {
+                          setState(()=>loading=!loading);
+                          statusDialog(context,false,"NOT A REGISTERED USER!");
+                        } on Error catch (e) {
+                          setState(()=>loading=!loading);
+                          statusDialog(context,false,"NOT A REGISTERED USER!");
+                          print('Error: $e');
+                        }
                       },
                       child: const Text('Forgot Password?',
                         textAlign: TextAlign.center,
@@ -175,7 +174,8 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                     GestureDetector(
                       onTap: ()async{
                         setState(()=>loading=!loading);
-                        await loginValidation(formKey: _formKey, context: context, phone: dialCode+phone.text, password: password.text);
+                        String formattedPhone = (phone.text[0] == "0" && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
+                        await loginValidation(formKey: _formKey, context: context, phone: dialCode+formattedPhone, password: password.text);
                         setState(()=>loading=!loading);
 
                       },
@@ -191,7 +191,7 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                             child: Center(child: Text('LOGIN',style: TextStyle(color: Utils.brownColor,fontFamily: "Times New Roman",fontWeight: FontWeight.w900,fontSize: 27 + 3 * _breathe),)),
                           ),
                         ),
-                      ),
+                      )
                     ),
                     const SizedBox(height: 10.0,),
                     Center(

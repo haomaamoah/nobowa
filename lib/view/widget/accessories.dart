@@ -45,12 +45,12 @@ class _GradientCirclePBarState extends State<GradientCirclePBar> with TickerProv
               children: const [
                 CircularProgressIndicator(
                   strokeWidth: 10,
-                  color: Colors.redAccent,
+                  color: Utils.brownColor,
                 ),
                 SizedBox(height: 20,),
                 Text('LOADING...',
                   style: TextStyle(
-                      fontSize: 15,fontFamily: "Gothic Bold",
+                      fontSize: 10,fontFamily: "Gothic Bold",color: Utils.brownColor,
                       fontWeight: FontWeight.w800,fontStyle: FontStyle.italic
                   ),
                 )
@@ -90,21 +90,21 @@ AppBar mainAppBar(){
 
 
 SpeedDial floatingActionButton(context){
-  TextStyle _labelStyle = TextStyle(fontSize: 20.0,color: Utils.brownColor,fontWeight: FontWeight.bold,fontFamily: "Poppins");
+  TextStyle _labelStyle = TextStyle(fontSize: 15.0,color: Utils.brownColor,fontWeight: FontWeight.bold,fontFamily: "Poppins");
   return SpeedDial(
-    childMargin: EdgeInsets.fromLTRB(0, 10, 0, 10), animatedIcon: AnimatedIcons.menu_home, animatedIconTheme: IconThemeData(size: 22.0), buttonSize: Size(50,50),elevation: 8.0, shape: CircleBorder(),
+    animatedIcon: AnimatedIcons.menu_home, animatedIconTheme: IconThemeData(size: 40.0,color: Utils.yellowColor), buttonSize: Size(40,40),elevation: 10.0, shape: CircleBorder(),
     tooltip: 'MENU', backgroundColor: Utils.brownColor, foregroundColor: Colors.white, curve: Curves.bounceInOut, overlayColor: Colors.black, overlayOpacity: 0.5,
     children: [
       SpeedDialChild(
-        child: Center(child: FaIcon(FontAwesomeIcons.powerOff,size: 30,color: Colors.red,)),
-        backgroundColor: Utils.yellowColor,
+        child: Center(child: FaIcon(FontAwesomeIcons.windowClose,size: 20,color: Colors.red[700],)),
+        backgroundColor: Colors.yellow[300],
         label: 'EXIT',
         labelStyle: _labelStyle,
         onTap: exitApp,
       ),
       SpeedDialChild(
-        child: Center(child: FaIcon(Icons.logout_rounded,size: 30,color: Colors.orange,)),
-        backgroundColor: Utils.yellowColor,
+        child: Center(child: FaIcon(Icons.logout_rounded,size: 25,color: Utils.brownColor,)),
+        backgroundColor: Colors.yellow[300],
         label: 'LOGOUT',
         labelStyle: _labelStyle,
         onTap: ()=>logoutDialog(context, const LoginForm()),

@@ -18,7 +18,9 @@ dependencies:
   country_code_picker:
   cloud_firestore:
   firebase_core:
+  firebase_messaging:
   firebase_phone_auth_handler:
+  flutter_inappwebview:
   flutter_speed_dial:
   font_awesome_flutter:
   geocoder:

@@ -1,20 +1,17 @@
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:nobowa/model/cloud_utils.dart';
-import 'package:nobowa/view/page/login.dart';
-import 'package:nobowa/view/page/website.dart';
-import 'package:nobowa/view/widget/accessories.dart';
-import 'package:nobowa/view/widget/dialogs.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../controller/validation.dart';
+import '../../model/cloud_utils.dart';
+import 'login.dart';
+import 'website.dart';
+import '../widget/accessories.dart';
+import '../widget/dialogs.dart';
 import '../../model/models.dart';
-import 'home.dart';
 
 class PasswordForm extends StatefulWidget {
-  Users user;
-  PasswordForm(this.user);
+  final Users user;
+  const PasswordForm(this.user, {Key? key}) : super(key: key);
 
   @override
   _PasswordFormState createState() => _PasswordFormState();
@@ -30,7 +27,7 @@ class _PasswordFormState extends State<PasswordForm> {
 
   TextStyle headingStyle = const TextStyle(
       fontSize: 20,fontFamily: "Poppins",
-      fontWeight: FontWeight.w800
+      fontWeight: FontWeight.w800,color: Utils.brownColor
   );
 
   EdgeInsets infoPadding = const EdgeInsets.fromLTRB(35, 20, 35, 20);
@@ -58,8 +55,7 @@ class _PasswordFormState extends State<PasswordForm> {
 
   }
 
-
-  String? validateNewPass(password){
+  String? validateConfirmPassword(password){
     if (password.isEmpty) {
       return 'New password is required';
     }
@@ -80,10 +76,14 @@ class _PasswordFormState extends State<PasswordForm> {
         child: TextFormField(
           obscureText: true, keyboardType: TextInputType.text,
           controller: newPassword,
+          autovalidateMode: AutovalidateMode.always,
+
           decoration: InputDecoration(
-              border: infoOutlineInputBorder,labelText: "NEW PASSWORD"
+              errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+              labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+              border: infoOutlineInputBorder,labelText: "NEW PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
           ),
-          validator: validateNewPass,
+          validator: validateSignupPassword,
         ),
       ),
     );
@@ -97,11 +97,14 @@ class _PasswordFormState extends State<PasswordForm> {
         padding: infoPadding,
         child: TextFormField(
           controller: confirmPassword,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: true, keyboardType: TextInputType.text,
           decoration: InputDecoration(
-              border: infoOutlineInputBorder,labelText: "CONFIRM NEW PASSWORD"
+              errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+              labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+              border: infoOutlineInputBorder,labelText: "CONFIRM PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
           ),
-          validator: validateNewPass,
+          validator: validateConfirmPassword,
         ),
       ),
     );
@@ -137,10 +140,10 @@ class _PasswordFormState extends State<PasswordForm> {
                     const SizedBox(height: 20,),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
-                      child: Container(height: 35, decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Colors.greenAccent
+                      child: Container(height: 35, decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),color: Utils.yellowColor
                       ),
                           child:MaterialButton(elevation: 5.0,child: const Text("SUBMIT",
-                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Utils.brownColor),
                           ),
                               onPressed: validate
                           )),
