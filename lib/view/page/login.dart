@@ -129,7 +129,7 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                       padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
                       child: SizedBox(height: 110,
                         child: Image.asset(Utils.bannerLogo,
-                          fit: BoxFit.contain,width: 300 + 20 * _breathe,height: 100 + 20 * _breathe,),
+                          fit: BoxFit.contain,width: 300,height: 100,),
                       ),
                     ),
                     phoneField(),
@@ -174,7 +174,7 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                     GestureDetector(
                       onTap: ()async{
                         setState(()=>loading=!loading);
-                        String formattedPhone = (phone.text[0] == "0" && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
+                        String formattedPhone = (phone.text.startsWith("0") && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
                         await loginValidation(formKey: _formKey, context: context, phone: dialCode+formattedPhone, password: password.text);
                         setState(()=>loading=!loading);
 

@@ -92,19 +92,19 @@ AppBar mainAppBar(){
 SpeedDial floatingActionButton(context){
   TextStyle _labelStyle = TextStyle(fontSize: 15.0,color: Utils.brownColor,fontWeight: FontWeight.bold,fontFamily: "Poppins");
   return SpeedDial(
-    animatedIcon: AnimatedIcons.menu_home, animatedIconTheme: IconThemeData(size: 40.0,color: Utils.yellowColor), buttonSize: Size(40,40),elevation: 10.0, shape: CircleBorder(),
-    tooltip: 'MENU', backgroundColor: Utils.brownColor, foregroundColor: Colors.white, curve: Curves.bounceInOut, overlayColor: Colors.black, overlayOpacity: 0.5,
+    animatedIcon: AnimatedIcons.menu_home,activeBackgroundColor: Colors.white, animatedIconTheme: IconThemeData(size: 40.0,color: Utils.brownColor), buttonSize: Size(40,40),elevation: 10.0, shape: CircleBorder(),
+    tooltip: 'MENU', backgroundColor: Colors.white, foregroundColor: Colors.white, curve: Curves.bounceInOut, overlayColor: Colors.black, overlayOpacity: 0.5,
     children: [
       SpeedDialChild(
         child: Center(child: FaIcon(FontAwesomeIcons.windowClose,size: 20,color: Colors.red[700],)),
-        backgroundColor: Colors.yellow[300],
+        backgroundColor: Colors.white,
         label: 'EXIT',
         labelStyle: _labelStyle,
         onTap: exitApp,
       ),
       SpeedDialChild(
         child: Center(child: FaIcon(Icons.logout_rounded,size: 25,color: Utils.brownColor,)),
-        backgroundColor: Colors.yellow[300],
+        backgroundColor: Colors.white,
         label: 'LOGOUT',
         labelStyle: _labelStyle,
         onTap: ()=>logoutDialog(context, const LoginForm()),

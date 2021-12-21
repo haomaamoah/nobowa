@@ -68,7 +68,7 @@ class _SignupFormState extends State<SignupForm> {
       user.name=name.text;
       user.password=password.text;
       user.email=email.text;
-      String formattedPhone = (phone.text[0] == "0" && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
+      String formattedPhone = (phone.text.startsWith("0") && phone.text.length >= 10)? phone.text.substring(1,) : phone.text;
       user.phone=dialCode+formattedPhone;
       user.location=location ?? "Not Found";
       user.profession=profession;

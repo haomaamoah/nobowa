@@ -72,7 +72,7 @@ String? validateEmail(name){
 }
 
 String? validatePhone(name){
-  if (name.isEmpty) {
+  if (name.length <= 4) {
     return 'Phone number is required';
   }
   else if (name.length < 9) {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,6 +21,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   late AnimationController rotationController;
 
+  var timer;
+
   Stream<ConnectivityResult> subscription = Connectivity().onConnectivityChanged;
 
   Future<void> launchWebsite () async {
@@ -37,17 +41,20 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     super.initState();
     rotationController = AnimationController(vsync: this,duration: Duration(seconds: 4));
     rotationController.repeat();
+    timer = Timer.periodic(Duration(seconds:1), (timer){
+      if(timer.tick == 5){launchWebsite();timer.cancel();}
+    });
   }
 
   @override
   void dispose() {
     rotationController.dispose();
+    timer.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    launchWebsite();
     return Scaffold(
             body: Container(
               width: double.infinity,height: double.infinity,
