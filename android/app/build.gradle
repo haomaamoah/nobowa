@@ -54,8 +54,8 @@ android {
         applicationId "com.nobowa"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 2
+        versionName "Pre-Games"
     }
     
     signingConfigs {

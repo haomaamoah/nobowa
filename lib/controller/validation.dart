@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:nobowa/view/page/website.dart';
+import '../view/page/website.dart';
 import '../model/cloud_utils.dart';
 import '../model/file_utils.dart';
 import '../model/models.dart';
-import '../view/page/home.dart';
 import '../view/widget/bouncy_page_route.dart';
 import '../view/widget/dialogs.dart';
 

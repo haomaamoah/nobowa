@@ -69,43 +69,37 @@ class _PasswordFormState extends State<PasswordForm> {
 
   // Personal Phone
   Widget _newPassword(){
-    return Container(
-      height: 100,
-      child: Padding(
-        padding: infoPadding,
-        child: TextFormField(
-          obscureText: true, keyboardType: TextInputType.text,
-          controller: newPassword,
-          autovalidateMode: AutovalidateMode.always,
+    return Padding(
+      padding: infoPadding,
+      child: TextFormField(
+        obscureText: true, keyboardType: TextInputType.text,
+        controller: newPassword,
+        autovalidateMode: AutovalidateMode.always,
 
-          decoration: InputDecoration(
-              errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
-              labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
-              border: infoOutlineInputBorder,labelText: "NEW PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
-          ),
-          validator: validateSignupPassword,
+        decoration: InputDecoration(
+            errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+            labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+            border: infoOutlineInputBorder,labelText: "NEW PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
         ),
+        validator: validateSignupPassword,
       ),
     );
   }
 
   // Personal Password
   Widget _confirmPassword(){
-    return Container(
-      height: 100,
-      child: Padding(
-        padding: infoPadding,
-        child: TextFormField(
-          controller: confirmPassword,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          obscureText: true, keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-              errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
-              labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
-              border: infoOutlineInputBorder,labelText: "CONFIRM PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
-          ),
-          validator: validateConfirmPassword,
+    return Padding(
+      padding: infoPadding,
+      child: TextFormField(
+        controller: confirmPassword,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        obscureText: true, keyboardType: TextInputType.text,
+        decoration: InputDecoration(
+            errorStyle: const TextStyle(fontSize: 13,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+            labelStyle: const TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
+            border: infoOutlineInputBorder,labelText: "CONFIRM PASSWORD",icon: FaIcon(Icons.lock,color: Colors.red,size: 28,)
         ),
+        validator: validateConfirmPassword,
       ),
     );
   }

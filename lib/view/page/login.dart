@@ -8,17 +8,15 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nobowa/controller/validation.dart';
-import 'package:nobowa/view/page/signup.dart';
-import 'package:nobowa/view/page/verifyotp.dart';
+import '../../controller/validation.dart';
+import 'signup.dart';
+import 'verifyotp.dart';
 import '../../model/cloud_utils.dart';
-import '../../model/file_utils.dart';
 import '../../model/models.dart';
 import '../widget/accessories.dart';
 import '../widget/bouncy_page_route.dart';
 import '../widget/dialogs.dart';
 
-import 'home.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -36,6 +34,10 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
   bool loading = false;
 
   TextStyle headingStyle = const TextStyle(decoration: TextDecoration.underline, fontSize: 20, fontStyle: FontStyle.italic, fontWeight: FontWeight.w600);
+  TextStyle headingStyle2 = const TextStyle(
+      fontSize: 25,fontFamily: "Poppins",
+      fontWeight: FontWeight.w800,color: Utils.brownColor
+  );
   EdgeInsets infoPadding = const EdgeInsets.only(top: 2.0,bottom: 2.0,left:2.0,right: 2.0);
   OutlineInputBorder infoOutlineInputBorder = OutlineInputBorder(borderRadius: BorderRadius.circular(20),);
 
@@ -43,7 +45,7 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
   // Phone Field
   Widget phoneField(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -55,20 +57,20 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                 initialSelection: "GH",
                 onInit: ( code) => dialCode = code!.dialCode!,
                 padding: const EdgeInsets.all(0),
-                textStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400,fontSize: 20),
+                textStyle: TextStyle(color: Utils.brownColor,fontSize: 20,fontFamily: "Times New Roman",fontWeight: FontWeight.w600),
                 flagDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
             ],
           ),
           SizedBox(
-            width: 200,
+            width: 210,
             child: TextFormField(
               controller: phone,keyboardType: TextInputType.phone,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                hintStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400),
+                hintStyle: TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
                 hintText: "ENTER MOBILE",
               ),
               validator: validatePhone,
@@ -87,28 +89,12 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
         controller: password,obscureText: true,
         decoration: const InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-          hintStyle: TextStyle(color: Color(0xFF4f2d01),fontWeight: FontWeight.w400),
+          hintStyle: TextStyle(color: Utils.brownColor,fontSize: 15,fontFamily: "Times New Roman",fontWeight: FontWeight.bold),
           hintText: "ENTER PASSWORD",icon: FaIcon(FontAwesomeIcons.lock,color: Colors.redAccent,),
         ),
         validator: validateLoginPassword,
       ),
     );
-  }
-
-  AnimationController? _breathingController; double _breathe = 0;
-  @override
-  void initState(){
-    super.initState();
-    _breathingController = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
-    _breathingController!.addStatusListener((status) {
-      if (status == AnimationStatus.completed){_breathingController!.reverse();}
-      else if (status == AnimationStatus.dismissed){_breathingController!.forward();}});
-    _breathingController!.addListener(() {setState(() {_breathe = _breathingController!.value;});});_breathingController!.forward();
-  }
-  @override
-  void dispose() {
-    _breathingController!.dispose();
-    super.dispose();
   }
 
   @override
@@ -125,11 +111,47 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Image.asset(Utils.iconLogo,fit: BoxFit.contain,width: 100,height: 100,),
+                    Text("NOBOWA.com",textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16,color: Utils.brownColor,fontWeight: FontWeight.w500),
+                    ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
-                      child: SizedBox(height: 110,
-                        child: Image.asset(Utils.bannerLogo,
-                          fit: BoxFit.contain,width: 300,height: 100,),
+                      padding: const EdgeInsets.all(12.0),
+                      child: SizedBox(
+                        height: 35,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "Log In",
+                              style: headingStyle2,
+                            ),
+                            VerticalDivider(thickness: 4,color: Utils.brownColor,),
+                            GestureDetector(
+                              onTap: ()=>Navigator.push(context, BouncyPageRoute(widget: SignupForm())),
+                              child: const Text.rich(
+                                  TextSpan(
+                                      children: [
+                                        TextSpan(
+                                            text: "Not a member?",
+                                            style: TextStyle(
+                                                color: Colors.black54,fontFamily: "Times New Roman",
+                                                fontWeight: FontWeight.w900,fontSize: 14.0
+                                            )
+                                        ),
+                                        TextSpan(
+                                            text: " Sign Up",
+                                            style: TextStyle(
+                                                color: Colors.blue,fontFamily: "Times New Roman",
+                                                fontWeight: FontWeight.w900,fontSize: 14.0
+                                            )
+                                        )
+                                      ]
+                                  )
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     phoneField(),
@@ -179,46 +201,19 @@ class _LoginFormState extends State<LoginForm> with TickerProviderStateMixin{
                         setState(()=>loading=!loading);
 
                       },
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Utils.yellowColor,
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Center(child: Text('LOGIN',style: TextStyle(color: Utils.brownColor,fontFamily: "Times New Roman",fontWeight: FontWeight.w900,fontSize: 27 + 3 * _breathe),)),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Utils.yellowColor,
+                            borderRadius: BorderRadius.circular(15),
                           ),
+                          child: Center(child: Text('LOGIN',style: TextStyle(color: Utils.brownColor,fontFamily: "Times New Roman",fontWeight: FontWeight.w900,fontSize: 28),)),
                         ),
                       )
                     ),
                     const SizedBox(height: 10.0,),
-                    Center(
-                      child: GestureDetector(
-                        onTap: ()=>Navigator.push(context, BouncyPageRoute(widget: SignupForm())),
-                        child: const Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Not a member?",
-                                style: TextStyle(
-                                    color: Colors.black54,fontFamily: "Times New Roman",
-                                    fontWeight: FontWeight.w900,fontSize: 16.0
-                                )
-                              ),
-                              TextSpan(
-                                  text: " SIGN UP",
-                                  style: TextStyle(
-                                      color: Colors.blue,fontFamily: "Times New Roman",
-                                      fontWeight: FontWeight.w900,fontSize: 18.0
-                                  )
-                              )
-                            ]
-                          )
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

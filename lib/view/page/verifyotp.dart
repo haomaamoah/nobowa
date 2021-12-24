@@ -2,13 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_phone_auth_handler/firebase_phone_auth_handler.dart';
 import 'package:flutter/material.dart';
-import 'package:nobowa/model/cloud_utils.dart';
-import 'package:nobowa/model/file_utils.dart';
-import 'package:nobowa/model/models.dart';
-import 'package:nobowa/view/page/home.dart';
-import 'package:nobowa/view/page/website.dart';
-import 'package:nobowa/view/widget/accessories.dart';
-import 'package:nobowa/view/widget/dialogs.dart';
+import '../../model/cloud_utils.dart';
+import '../../model/file_utils.dart';
+import '../../model/models.dart';
+import 'website.dart';
+import '../widget/accessories.dart';
+import '../widget/dialogs.dart';
 
 import 'changepass.dart';
 
@@ -42,12 +41,14 @@ class _VerifyOTPFormState extends State<VerifyOTPForm> {
               }).
               catchError((error){
                 print(error);
+                Navigator.of(context).pop();
                 (error.runtimeType == TimeoutException)? noInternetDialog(context) :
                 statusDialog(context, false,"SIGNUP FAILED!\nPlease try again.");
               });
             }
           },
           onLoginFailed: (authException) {
+            Navigator.of(context).pop();
             print("An error occurred: ${authException.message}");
             statusDialog(context, false,"VERIFICATION FAILED!\nPlease try again.");
 

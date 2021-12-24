@@ -27,7 +27,8 @@ class Users {
 
 class Utils {
   static const String
-  iconLogo = 'assets/images/companyLogo.png', bannerLogo = 'assets/images/companyBanner.png';
+  iconLogo = 'assets/images/companyLogo.png', bannerLogo = 'assets/images/companyBanner.png',
+      introNewUserBg = 'assets/images/newUserIntro.jpeg', introOldUserBg = 'assets/images/oldUserIntro.jpeg';
 
   static const List<String> professions =
   ["STUDENT","TEACHING STAFF","FARMER","SELF EMPLOYED","PRIVATE WORKER","PUBLIC WORKER","JUST INTERESTED"];
